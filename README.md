@@ -1,62 +1,151 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# API Spec
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## Authentication
 
-## About Laravel
+All API must use this authentication
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Request :
+- Header :
+    - Bearer Token : "your token"
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Create Student
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Request :
+- Method : POST
+- Endpoint : `/api/student`
+- Header :
+    - Content-Type: application/json
+    - Accept: application/json
+- Body :
 
-## Learning Laravel
+```json 
+{
+    "nama" : "string",
+    "alamat" : "string",
+    "no_telepon" : "integer"
+}
+```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Response :
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+```json 
+{
+    "message" : "string",
+    "data" : {
+         "id" : "integer, unique",
+         "nama" : "string",
+         "alamat" : "string",
+         "no_telepon" : "integer",
+         "createdAt" : "datetime",
+         "updatedAt" : "datetime"
+     }
+}
+```
 
-## Laravel Sponsors
+## Get Student
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+Request :
+- Method : GET
+- Endpoint : `/api/student/{student_id}`
+- Header :
+    - Accept: application/json
 
-### Premium Partners
+Response :
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/)**
-- **[OP.GG](https://op.gg)**
+```json 
+{
+    "message" : "string",
+    "data" : {
+         "id" : "integer, unique",
+         "nama" : "string",
+         "alamat" : "string",
+         "no_telepon" : "integer",
+         "createdAt" : "datetime",
+         "updatedAt" : "datetime"
+     }
+}
+```
 
-## Contributing
+## Update Student
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Request :
+- Method : PUT
+- Endpoint : `/api/products/{student_id}`
+- Header :
+    - Content-Type: application/json
+    - Accept: application/json
+- Body :
 
-## Code of Conduct
+```json 
+{
+    "nama" : "string",
+    "alamat" : "string",
+    "no_telepon" : "integer"
+}
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Response :
 
-## Security Vulnerabilities
+```json 
+{
+    "message" : "string",
+    "data" : {
+         "id" : "integer, unique",
+         "nama" : "string",
+         "alamat" : "string",
+         "no_telepon" : "integer",
+         "createdAt" : "datetime",
+         "updatedAt" : "datetime"
+     }
+}
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## List Students
 
-## License
+Request :
+- Method : GET
+- Endpoint : `/api/student`
+- Header :
+    - Accept: application/json
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Response :
+
+```json 
+{
+    "message" : "string",
+    "data" : [
+        {
+             "id" : "id, unique",
+             "nama" : "string",
+             "alamat" : "string",
+             "no_telepon" : "integer",
+             "createdAt" : "datetime",
+             "updatedAt" : "datetime"
+        },
+        {
+             "id" : "id, unique",
+             "nama" : "string",
+             "alamat" : "string",
+             "no_telepon" : "integer",
+             "createdAt" : "datetime",
+             "updatedAt" : "datetime"
+        }
+    ]
+}
+```
+
+## Delete Student
+
+Request :
+- Method : DELETE
+- Endpoint : `/api/student/{student_id}`
+- Header :
+    - Accept: application/json
+
+Response :
+
+```json 
+{
+    "message" : "string"
+}
+```
