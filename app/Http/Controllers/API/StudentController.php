@@ -33,7 +33,7 @@ class StudentController extends Controller
         ],200);
     }
 
-    public function edit(Student $student)
+    public function show(Student $student)
     {
         return response()->json([
             'message' => 'success',
