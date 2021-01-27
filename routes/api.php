@@ -24,7 +24,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::middleware('auth:sanctum')->group(function() {
     Route::get('/logout', [AuthController::class, 'logout']);
 
-    Route::resource('student', StudentController::class)->except('create','show');
+    Route::resource('student', StudentController::class)->except('create','edit');
 });
 
 Route::post('login', [AuthController::class, 'login']);
