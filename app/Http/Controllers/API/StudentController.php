@@ -5,7 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StudentRequest;
 use App\Models\Student;
-use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class StudentController extends Controller
 {
@@ -33,20 +33,35 @@ class StudentController extends Controller
         ],200);
     }
 
-    public function show(Student $student)
+    public function show($id)
     {
+        try {
+            $student = Student::findOrFail($id);
+        } catch (ModelNotFoundException $exception) {
+            return response()->json([
+                'error' => 'Data not found'
+            ], 404);
+        }
+
         return response()->json([
             'message' => 'success',
             'data' => $student
         ],200);
     }
 
-    public function update(StudentRequest $studentRequest, Student $student)
+    public function update(StudentRequest $studentRequest, $id)
     {
-        $student->nama = $studentRequest->nama;
-        $student->alamat = $studentRequest->alamat;
-        $student->no_telepon = $studentRequest->no_telepon;
-        $student->save();
+        try {
+            $student = Student::findOrFail($id);
+            $student->nama = $studentRequest->nama;
+            $student->alamat = $studentRequest->alamat;
+            $student->no_telepon = $studentRequest->no_telepon;
+            $student->save();
+        } catch (ModelNotFoundException $exception) {
+            return response()->json([
+                'error' => 'Data not found'
+            ], 404);
+        }
 
         return response()->json([
             'message' => 'data updated successfully',
@@ -54,9 +69,16 @@ class StudentController extends Controller
         ],200);
     }
 
-    public function destroy(Student $student)
+    public function destroy($id)
     {
-        Student::destroy($student->id);
+        try {
+            $student = Student::findOrFail($id);
+            $student->delete();
+        } catch (ModelNotFoundException $exception) {
+            return response()->json([
+                'error' => 'Data not found'
+            ], 404);
+        }
 
         return response()->json([
             'message' => 'data deleted successfully'
